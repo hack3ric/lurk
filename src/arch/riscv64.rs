@@ -627,7 +627,9 @@ pub static SYSCALLS: Riscv64Syscalls = Riscv64Syscalls {
         syscall!(accept4, INT, ADDR, ADDR, INT),
         syscall!(recvmmsg, INT, ADDR, INT, INT, ADDR),
     ],
-    _260: [
+    _258: [
+        syscall!(riscv_hwprobe, ADDR, INT, INT, ADDR, INT),
+        syscall!(riscv_flush_icache, ADDR, ADDR, INT),
         syscall!(wait4, INT, ADDR, INT, ADDR),
         syscall!(prlimit64, INT, INT, ADDR, ADDR),
         syscall!(fanotify_init, INT, INT),
@@ -716,6 +718,7 @@ pub static SYSCALLS: Riscv64Syscalls = Riscv64Syscalls {
         syscall!(process_mrelease, INT, INT),
         syscall!(futex_waitv, ADDR, INT, INT, ADDR, INT),
         syscall!(set_mempolicy_home_node, INT, INT, INT, INT),
+        syscall!(cachestat, INT, INT, INT, INT),
     ],
 };
 
@@ -741,8 +744,8 @@ mod tests {
         for (i, (sysno, ..)) in SYSCALLS._0.iter().enumerate() {
             assert_eq!(i, sysno.id() as usize);
         }
-        for (i, (sysno, ..)) in SYSCALLS._260.iter().enumerate() {
-            assert_eq!(i + 260, sysno.id() as usize);
+        for (i, (sysno, ..)) in SYSCALLS._258.iter().enumerate() {
+            assert_eq!(i + 258, sysno.id() as usize);
         }
         for (i, (sysno, ..)) in SYSCALLS._403.iter().enumerate() {
             assert_eq!(i + 403, sysno.id() as usize);
